@@ -4,8 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import {DrawerDefaultNavigator} from './Navigators/DrawerDefaultNavigator';
 import {DrawerCustomNavigator} from './Navigators/DrawerCustomNavigator.js';
 import Resultado from './resultado.js';
-const request = require('request-promise');
-const convertir = require("./libraryCurrency.js");
 
 export default class App extends Component {
   

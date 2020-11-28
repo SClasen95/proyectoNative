@@ -1,10 +1,12 @@
 import React from "react";
-
-class Resultado extends React.Component {
+import {Text} from 'react-native';
+export class Resultado extends React.Component {
+    constructor(props){
+        super(props);
+    }
 
     render(){
-        console.log(this.props.conversionRates);
-        return <p>1 {this.props.monedaBase} equivale a {this.props.conversionRates} {this.props.monedaAConsultar}</p>
+        return (<Text>1 {this.props.monedaBase} equivale a {this.props.conversionRates} {this.props.monedaAConsultar}</Text>);
     }
 
 }

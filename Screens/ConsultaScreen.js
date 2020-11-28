@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Resultado from '../resultado.js';
+import { StyleSheet, Text, View ,TextInput, Button} from 'react-native';
+import {Resultado} from '../resultado.js';
 const convertir = require("../libraryCurrency.js");
 
 export class ConsultaScreen extends Component {
@@ -10,18 +10,16 @@ export class ConsultaScreen extends Component {
 constructor(props){
     super(props);
     this.state = {
-        monedaBase: "USD",
-        monedaAConsultar: "ARS",
+        monedaBase: "",
+        monedaAConsultar: "",
         print: false,
         conversionRates: ""
       }
       this.API = this.getAPI.bind(this);
 }
 
-conversion = function (moneda,monedaAConvertir,monedaBase) {
-    var conversionRates = moneda.conversion_rates[monedaAConvertir];
-    console.log("1 "+monedaBase+" equivale a "+conversionRates+" "+monedaAConvertir);
-    //this.state.print=true;   //por algun motivo esto hace q el print salga doble?
+conversion = function (moneda,monedaAConvertir) {
+    var conversionRates = moneda.data.conversion_rates[monedaAConvertir];
     this.setState({
       conversionRates:conversionRates,
       print:true
@@ -32,10 +30,11 @@ conversion = function (moneda,monedaAConvertir,monedaBase) {
 getAPI(){
   convertir(this.state.monedaBase)
   .then((m) => {
-    this.conversion(m,this.state.monedaAConsultar,this.state.monedaBase);
+    this.conversion(m,this.state.monedaAConsultar);
   }).catch((err) => {
     console.log(err);
   });
+  
 }
 
 
@@ -46,14 +45,13 @@ getAPI(){
         }
 
         return(
-            <View className="App">
+            <View>
                 <Text>Convertir de:</Text>
-                <input type="text" name="mb" value={this.state.monedaBase} onChange={event => this.setState({monedaBase:event.target.value})}/>
-                <br></br>
+                <TextInput  onChangeText={text => this.setState({monedaBase:text})}/>
                 <Text>Convertir a:</Text>
-                <input type="text" name="mac" value={this.state.monedaAConsultar} onChange={event => this.setState({monedaAConsultar:event.target.value})}/>
-                <br></br>
-                <button onClick={this.API} className="btn btn-primary m-1">Consultar</button>
+                <TextInput  onChangeText={text => this.setState({monedaAConsultar:text})}/>
+                <Button title="Consultar" onPress={this.API}>
+                  </Button>
                 <View>
                     {resultado}
                 </View>
@@ -64,6 +62,7 @@ getAPI(){
     }
     
 }
+export default ConsultaScreen;
 
 
 const styles = StyleSheet.create({

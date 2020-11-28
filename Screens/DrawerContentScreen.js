@@ -30,7 +30,7 @@ export class DrawerContentScreen extends Component {
                             onPress={() => this.props.navigation.navigate("Info")}
                         />
                         <DrawerItem 
-                            icon={() => <Icon type="material-community" name="consulta" style={styles.icon}/>}
+                            icon={() => <Icon type="material-community" name="bomb" style={styles.icon}/>}
                             label="Consulta"
                             onPress={() => this.props.navigation.navigate("Consulta")}
                         />
